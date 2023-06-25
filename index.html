@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculadora</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #212020;
+        }
+
+        .calculator {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #eaeaea;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-size: 16px;
+            color: #333;
+        }
+
+        select,
+        input[type="number"] {
+            padding: 8px;
+            font-size: 16px;
+            width: 100%;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        #error {
+            color: red;
+            font-size: 14px;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-top: 30px;
+        }
+
+        #resultadosGuardados {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        #resultadosGuardados ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #resultadosGuardados li {
+            margin-bottom: 5px;
+        }
+
+        #resultadosTexto {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        #resultadosTexto ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #resultadosTexto li {
+            margin-bottom: 5px;
+        }
+        .codigo-item {
+            margin-bottom: 10px;
+        }
+
+        .codigo-label {
+            margin-left: 10px;
+        }
+
+        .cantidad-input {
+            margin-left: 10px;
+            width: 100px;
+        }
+
+        #resultado {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Calculadora JElizabeth</h1>
+
+    <div class="calculator">
+        <div class="form-group">
+            <label for="cartucheras">Ingrese la cantidad de cartucheras:</label>
+            <input type="number" id="cartucheras" name="cartucheras">
+        </div>
+
+        <div class="form-group">
+            <label for="codigo">Código:</label>
+            <select id="codigo" name="codigo">
+                <option value="C10">C10</option>
+                <option value="C11">C11</option>
+                <option value="C12">C12</option>
+                <option value="C13">C13</option>
+                <option value="C14">C14</option>
+                <option value="C15">C15</option>
+                <option value="C16">C16</option>
+                <option value="C17">C17</option>
+                <option value="C18">C18</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <ul id="codigoList"></ul>
+            <button id="calcularSuma" onclick="calcularSuma()">Calcular Suma</button>
+            <div id="resultado"></div>
+            <div id="resultadow"></div>
+        </div>
+
+        <button onclick="calculate()">Calcular</button>
+
+        <div id="result"></div>
+
+        <h2>Resultados guardados</h2>
+        <div id="resultadosGuardados">
+            <ul id="lonasGrandesList"></ul>
+            <ul id="lonasList"></ul>
+        </div>
+
+        <h2>Resultados textuales</h2>
+        <div id="resultadosTexto">
+            <ul id="resultadosTextoList"></ul>
+        </div>
+    </div>
+
+    <script>
+        var sumaLonasGrandes = 0;
+        var sumaLonas = 0;
+        var resultadosTextoList = document.getElementById('resultadosTextoList');
+        var codigo = document.getElementById('codigo').value;
+        var cartucheras = parseFloat(document.getElementById('cartucheras').value);
+        //var caricatura = document.getElementById('caricatura').value;
+        var resultElement = document.getElementById('result');
+        var result = 0;
+
+        function calculate() {
+            var codigo = document.getElementById('codigo').value;
+            var cartucheras = parseFloat(document.getElementById('cartucheras').value);
+            //var caricatura = document.getElementById('caricatura').value;
+            var resultElement = document.getElementById('result');
+            var result = 0;
+
+            if (codigo === 'C10') {
+                result = cartucheras * 1;
+            } else if (codigo === 'C11') {
+                result = cartucheras * 3;
+            } else if (codigo === 'C12') {
+                result = cartucheras * 5;
+            } else if (codigo === 'C13') {
+                result = cartucheras * 1;
+            } else if (codigo === 'C14') {
+                result = cartucheras * 3;
+            } else if (codigo === 'C15') {
+                result = cartucheras * 5;
+            } else if (codigo === 'C16') {
+                result = cartucheras * 1;
+            } else if (codigo === 'C17') {
+                result = cartucheras * 3;
+            } else if (codigo === 'C18') {
+                result = cartucheras * 5;
+            } else {
+                resultElement.innerHTML = 'Seleccione un código válido.';
+                return;
+            }
+
+            var resultadoTexto = '';
+
+            if (codigo === 'C10') {
+                resultadoTexto = 'La cantidad de lonas para C10 es ' + result;
+            } else if (codigo === 'C11') {
+                resultadoTexto = 'La cantidad de lonas para C11 es ' + result;
+            } else if (codigo === 'C12') {
+                resultadoTexto = 'La cantidad de lonas para C12 es ' + result;
+            } else if (codigo === 'C13') {
+                resultadoTexto = 'La cantidad de lonas grandes para C13 es ' + result;
+            } else if (codigo === 'C14') {
+                resultadoTexto = 'La cantidad de lonas grandes para C14 es ' + result;
+            } else if (codigo === 'C15') {
+                resultadoTexto = 'La cantidad de lonas grandes para C15 es ' + result;
+            } else if (codigo === 'C16') {
+                resultadoTexto = 'La cantidad de lonas grandes para C16 es ' + result;
+            } else if (codigo === 'C17') {
+                resultadoTexto = 'La cantidad de lonas grandes para C17 es ' + result;
+            } else if (codigo === 'C18') {
+                resultadoTexto = 'La cantidad de lonas grandes para C18 es ' + result;
+            } else {
+                resultadoTexto = 'Seleccione un codigo valido';
+            }
+
+            resultElement.innerHTML = resultadoTexto;
+
+            resultadosTextoList.innerHTML += '<li>' + resultadoTexto + '</li>';
+
+            if (codigo === 'C13' || codigo === 'C14' || codigo === 'C15' || codigo === 'C16' || codigo === 'C17' || codigo === 'C18') {
+                sumaLonasGrandes += result;
+                document.getElementById('lonasGrandesList').innerHTML = '<li>Suma total de lonas grandes: ' + sumaLonasGrandes + '</li>';
+            } else {
+                sumaLonas += result;
+                document.getElementById('lonasList').innerHTML = '<li>Suma total de lonas: ' + sumaLonas + '</li>';
+            }
+        }
+        
+        //calcular color
+        document.addEventListener("DOMContentLoaded", function() {
+            var codigoList = document.getElementById("codigoList");
+
+            var numeros = [
+            { codigo: 1, color: "azul" },
+                { codigo: 2, color: "negro" },
+                { codigo: 3, color: "azul" },
+                { codigo: 4, color: "negro" },
+                { codigo: 5, color: "negro" },
+                { codigo: 6, color: "negro" },
+                { codigo: 7, color: "azul" },
+                { codigo: 8, color: "negro" },
+                { codigo: 9, color: "negro" },
+                { codigo: 10, color: "negro" },
+
+                { codigo: 11, color: "amarillo" },
+                { codigo: 12, color: "negro" },
+                { codigo: 13, color: "negro" },
+                { codigo: 14, color: "negro" },
+                { codigo: 15, color: "azul" },
+                { codigo: 16, color: "negro" },
+                { codigo: 17, color: "negro" },
+                { codigo: 18, color: "azul" },
+                { codigo: 19, color: "negro" },
+                { codigo: 20, color: "negro" },
+
+                { codigo: 21, color: "amarillo" },
+                { codigo: 22, color: "negro" },
+                { codigo: 23, color: "azul" },
+                { codigo: 24, color: "negro" },
+                { codigo: 25, color: "azul" },
+                { codigo: 26, color: "rojo" },
+                { codigo: 27, color: "negro" },
+                { codigo: 28, color: "azul" },
+                { codigo: 29, color: "negro" },
+                { codigo: 30, color: "rojo" },
+
+                { codigo: 31, color: "azul" },
+                { codigo: 32, color: "rojo" },
+                { codigo: 33, color: "rojo" },
+
+                { codigo: 69, color: "rojo" },
+                { codigo: 70, color: "negro" },
+                { codigo: 71, color: "fuxia" },
+                { codigo: 72, color: "negro" },
+                { codigo: 73, color: "fuxia" },
+                { codigo: 74, color: "morado" },
+                { codigo: 75, color: "fuxia" },
+                { codigo: 76, color: "morado" },
+                { codigo: 77, color: "fuxia" },
+                { codigo: 78, color: "fuxia" },
+
+                { codigo: 79, color: "negro" },
+                { codigo: 80, color: "fuxia" },
+                { codigo: 81, color: "rojo" },
+                { codigo: 82, color: "negro" },
+                { codigo: 83, color: "fuxia" },
+                { codigo: 84, color: "negro" },
+                { codigo: 85, color: "fuxia" },
+                { codigo: 86, color: "negro" },
+                { codigo: 87, color: "fuxia" },
+                { codigo: 88, color: "rojo" },
+
+                { codigo: 89, color: "amarillo" },
+                { codigo: 90, color: "azul" },
+                { codigo: 91, color: "morado" },
+                { codigo: 92, color: "amarillo" },
+                { codigo: 93, color: "morado" },
+                { codigo: 94, color: "fuxia" },
+                { codigo: 95, color: "fuxia" },
+                { codigo: 96, color: "amarillo" },
+                { codigo: 97, color: "azul" },
+                { codigo: 98, color: "amarillo" },
+
+                { codigo: 99, color: "fuxia" },
+                { codigo: 100, color: "negro" },
+                { codigo: 101, color: "amarillo" },
+                { codigo: 102, color: "fuxia" },
+                { codigo: 103, color: "negro" },
+                { codigo: 104, color: "negro" },
+                { codigo: 105, color: "amarillo" },
+                
+                { codigo: 106, color: "fuxia" },
+                { codigo: 107, color: "morado" },
+                { codigo: 108, color: "morado" },
+                { codigo: 109, color: "fuxia" },
+                { codigo: 110, color: "morado" },
+                { codigo: 111, color: "morado" },
+                { codigo: 112, color: "amarillo" },
+                { codigo: 113, color: "negro" },
+                { codigo: 114, color: "morado" },
+                { codigo: 115, color: "negro" },
+
+                { codigo: "115-3", color: "morado" },
+                { codigo: "115-2", color: "negro" },
+                { codigo: 116, color: "morado" },
+                { codigo: 117, color: "morado" },
+                { codigo: 118, color: "morado" },
+                { codigo: 119, color: "fuxia" },
+                { codigo: 120, color: "morado" },
+                { codigo: 121, color: "fuxia" },
+                { codigo: 122, color: "morado" },
+                { codigo: 123, color: "fuxia" },
+
+                { codigo: 124, color: "fuxia" },
+                { codigo: 125, color: "morado" },
+                { codigo: 126, color: "fuxia" },
+                { codigo: 127, color: "morado" },
+                { codigo: 128, color: "fuxia" },
+                { codigo: 129, color: "fuxia" },
+                { codigo: 130, color: "rojo" },
+                { codigo: 131, color: "rojo" },
+                { codigo: 132, color: "rojo" },
+                { codigo: 133, color: "rojo" },
+
+                { codigo: 134, color: "fuxia" },
+                { codigo: 135, color: "fuxia" },
+                { codigo: 136, color: "fuxia" },
+                { codigo: 137, color: "morado" },
+
+                { codigo: 44, color: "azul" },
+                { codigo: 45, color: "azul" },
+                { codigo: 46, color: "amarillo" },
+                { codigo: 47, color: "azul" },
+                { codigo: 48, color: "azul" },
+                { codigo: 49, color: "azul" },
+                { codigo: 50, color: "azul" },
+                { codigo: 51, color: "azul" },
+                { codigo: 52, color: "azul" },
+                { codigo: 53, color: "rojo" },
+
+                { codigo: 34, color: "rojo" },
+                { codigo: 35, color: "azul" },
+                { codigo: 36, color: "rojo" },
+                { codigo: 37, color: "azul" },
+                { codigo: 38, color: "rojo" },
+                { codigo: 39, color: "azul" },
+                { codigo: 40, color: "azul" },
+                { codigo: 41, color: "azul" },
+                { codigo: 42, color: "azul" },
+                { codigo: 43, color: "rojo" },
+                
+                { codigo: 54, color: "rojo" },
+                { codigo: 55, color: "azul" },
+                { codigo: 56, color: "negro" },
+                { codigo: 57, color: "rojo" },
+                { codigo: 58, color: "negro" },
+                { codigo: 59, color: "azul" },
+                { codigo: 60, color: "azul" },
+                { codigo: 61, color: "azul" },
+                { codigo: 62, color: "azul" },
+                { codigo: 63, color: "azul" },
+                { codigo: 64, color: "azul" },
+                { codigo: 65, color: "rojo" },
+                { codigo: 66, color: "azul" },
+                { codigo: 67, color: "negro" },
+                { codigo: 68, color: "rojo" },
+                { codigo: 138, color: "negro" },
+                { codigo: 139, color: "rojo" },
+                { codigo: 138, color: "azul" },
+                { codigo: 141, color: "azul" },
+            ];
+
+            for (var i = 0; i < numeros.length; i++) {
+                var codigoItem = document.createElement("li");
+                codigoItem.className = "codigo-item";
+
+                var checkbox = document.createElement("input");
+                checkbox.type = "checkbox";
+                checkbox.value = numeros[i].codigo;
+
+                var label = document.createElement("label");
+                label.className = "codigo-label";
+                label.textContent = numeros[i].codigo;
+
+                var cantidadInput = document.createElement("input");
+                cantidadInput.type = "number";
+                cantidadInput.className = "cantidad-input";
+                
+
+                checkbox.addEventListener("change", function() {
+                    cantidadInput.disabled = !this.checked;
+                });
+
+                codigoItem.appendChild(checkbox);
+                codigoItem.appendChild(label);
+                codigoItem.appendChild(cantidadInput);
+                codigoList.appendChild(codigoItem);
+            }
+        });
+
+        function calcularSuma() {
+            var codigo = document.getElementById('codigo').value;
+            var checkboxes = document.querySelectorAll("input[type='checkbox']:checked");
+            var sumaMorado = 0;
+            var sumaNegro = 0;
+            var sumaRojo = 0;
+            var sumaFuxia = 0;
+            var sumaAzul = 0;
+            var sumaAmarillo = 0;
+            var resultadoMultiplicadoAzul = 0;
+            var resultadoMultiplicadMorado = 0;
+            var resultadoMultiplicadoFuxia = 0;
+            var resultadoMultiplicadoRojo = 0;
+            var resultadoMultiplicadoNegro = 0;
+            var resultadoMultiplicadoAmarillo = 0;
+
+            checkboxes.forEach(function(checkbox) {
+                var codigoItem = checkbox.parentNode;
+                var cantidadInput = codigoItem.querySelector(".cantidad-input");
+                var cantidad = parseInt(cantidadInput.value);
+
+                var codigo = parseInt(checkbox.value);
+                var color = obtenerColor(codigo);
+
+                if (!isNaN(cantidad)) {
+                    switch (color) {
+                        case "morado":
+                            sumaMorado += cantidad;
+                            break;
+                        case "negro":
+                            sumaNegro += cantidad;
+                            break;
+                        case "rojo":
+                            sumaRojo += cantidad;
+                            break;
+                        case "fuxia":
+                            sumaFuxia += cantidad;
+                            break;
+                        case "azul":
+                            sumaAzul += cantidad;
+                            break;
+                        case "amarillo":
+                            sumaAmarillo += cantidad;
+                            break;
+                    }
+                }
+              
+            });
+                if (codigo === 'C10') {
+                    resultadoMultiplicadoAzul = sumaAzul * 1;
+                    resultadoMultiplicadMorado = sumaMorado * 1;
+                    resultadoMultiplicadoFuxia = sumaFuxia * 1;
+                    resultadoMultiplicadoRojo = sumaRojo * 1;
+                    resultadoMultiplicadoNegro = sumaNegro * 1;
+                    resultadoMultiplicadoAmarillo = sumaAmarillo * 1;
+                } else if (codigo === 'C11') {
+                    resultadoMultiplicadoAzul = sumaAzul * 3;
+                    resultadoMultiplicadMorado = sumaMorado * 3;
+                    resultadoMultiplicadoFuxia = sumaFuxia * 3;
+                    resultadoMultiplicadoRojo = sumaRojo * 3;
+                    resultadoMultiplicadoNegro = sumaNegro * 3;
+                    resultadoMultiplicadoAmarillo = sumaAmarillo * 3;
+                } else if (codigo === 'C12') {
+                    resultadoMultiplicadoAzul = sumaAzul * 5;
+                    resultadoMultiplicadMorado = sumaMorado * 5;
+                    resultadoMultiplicadoFuxia = sumaFuxia * 5;
+                    resultadoMultiplicadoRojo = sumaRojo * 5;
+                    resultadoMultiplicadoNegro = sumaNegro * 5;
+                    resultadoMultiplicadoAmarillo = sumaAmarillo * 5;
+                } else if (codigo === 'C13') {
+                    resultadoMultiplicadoAzul = sumaAzul * 1;
+                    resultadoMultiplicadMorado = sumaMorado * 1;
+                    resultadoMultiplicadoFuxia = sumaFuxia * 1;
+                    resultadoMultiplicadoRojo = sumaRojo * 1;
+                    resultadoMultiplicadoNegro = sumaNegro * 1;
+                    resultadoMultiplicadoAmarillo = sumaAmarillo * 1;
+                } else if (codigo === 'C14') {
+                    resultadoMultiplicadoAzul = sumaAzul * 3;
+                    resultadoMultiplicadMorado = sumaMorado * 3;
+                    resultadoMultiplicadoFuxia = sumaFuxia * 3;
+                    resultadoMultiplicadoRojo = sumaRojo * 3;
+                    resultadoMultiplicadoNegro = sumaNegro * 3;
+                    resultadoMultiplicadoAmarillo = sumaAmarillo * 3;
+                } else if (codigo === 'C15') {
+                    resultadoMultiplicadoAzul = sumaAzul * 5;
+                    resultadoMultiplicadMorado = sumaMorado * 5;
+                    resultadoMultiplicadoFuxia = sumaFuxia * 5;
+                    resultadoMultiplicadoRojo = sumaRojo * 5;
+                    resultadoMultiplicadoNegro = sumaNegro * 5;
+                    resultadoMultiplicadoAmarillo = sumaAmarillo * 5;
+                } else if (codigo === 'C16') {
+                    resultadoMultiplicadoAzul = sumaAzul * 1;
+                    resultadoMultiplicadMorado = sumaMorado * 1;
+                    resultadoMultiplicadoFuxia = sumaFuxia * 1;
+                    resultadoMultiplicadoRojo = sumaRojo * 1;
+                    resultadoMultiplicadoNegro = sumaNegro * 1;
+                    resultadoMultiplicadoAmarillo = sumaAmarillo * 1;
+                } else if (codigo === 'C17') {
+                    resultadoMultiplicadoAzul = sumaAzul * 3;
+                    resultadoMultiplicadMorado = sumaMorado * 3;
+                    resultadoMultiplicadoFuxia = sumaFuxia * 3;
+                    resultadoMultiplicadoRojo = sumaRojo * 3;
+                    resultadoMultiplicadoNegro = sumaNegro * 3;
+                    resultadoMultiplicadoAmarillo = sumaAmarillo * 3;
+                } else if (codigo === 'C18') {
+                    resultadoMultiplicadoAzul = sumaAzul * 5;
+                    resultadoMultiplicadMorado = sumaMorado * 5;
+                    resultadoMultiplicadoFuxia = sumaFuxia * 5;
+                    resultadoMultiplicadoRojo = sumaRojo * 5;
+                    resultadoMultiplicadoNegro = sumaNegro * 5;
+                    resultadoMultiplicadoAmarillo = sumaAmarillo * 5;
+                } else {
+                resultElement.innerHTML = 'Seleccione un código válido.';
+                return;
+                }
+
+            var resultado = document.getElementById("resultado");
+            var resultadosGuardadosList = document.createElement('ul');
+            resultadosGuardadosList.id = 'resultadosGuardadosList';
+            document.getElementById('resultadosGuardados').appendChild(resultadosGuardadosList);
+            var resultadoItem = document.createElement('li');
+
+
+            resultadoItem.innerHTML = "Suma Morado: " + sumaMorado + " Multiplicado por el codigo: " + resultadoMultiplicadMorado + "<br>" +
+                "Suma Negro: " + sumaNegro + " Multiplicado por el codigo: " + resultadoMultiplicadoNegro + "<br>" +
+                "Suma Rojo: " + sumaRojo + " Multiplicado por el codigo: " + resultadoMultiplicadoRojo + "<br>" +
+                "Suma Fuxia: " + sumaFuxia + " Multiplicado por el codigo: " + resultadoMultiplicadoFuxia + "<br>" +
+                "Suma Azul: " + sumaAzul + " Multiplicado por el codigo: " + resultadoMultiplicadoAzul + "<br>" +
+                "Suma Amarillo: " + sumaAmarillo + " Multiplicado por el codigo: " + resultadoMultiplicadoAmarillo;
+                resultadosGuardadosList.appendChild(resultadoItem);
+        }
+        function obtenerColor(codigo) {
+            var numeros = [
+                { codigo: 1, color: "azul" },
+                { codigo: 2, color: "negro" },
+                { codigo: 3, color: "azul" },
+                { codigo: 4, color: "negro" },
+                { codigo: 5, color: "negro" },
+                { codigo: 6, color: "negro" },
+                { codigo: 7, color: "azul" },
+                { codigo: 8, color: "negro" },
+                { codigo: 9, color: "negro" },
+                { codigo: 10, color: "negro" },
+
+                { codigo: 11, color: "amarillo" },
+                { codigo: 12, color: "negro" },
+                { codigo: 13, color: "negro" },
+                { codigo: 14, color: "negro" },
+                { codigo: 15, color: "azul" },
+                { codigo: 16, color: "negro" },
+                { codigo: 17, color: "negro" },
+                { codigo: 18, color: "azul" },
+                { codigo: 19, color: "negro" },
+                { codigo: 20, color: "negro" },
+
+                { codigo: 21, color: "amarillo" },
+                { codigo: 22, color: "negro" },
+                { codigo: 23, color: "azul" },
+                { codigo: 24, color: "negro" },
+                { codigo: 25, color: "azul" },
+                { codigo: 26, color: "rojo" },
+                { codigo: 27, color: "negro" },
+                { codigo: 28, color: "azul" },
+                { codigo: 29, color: "negro" },
+                { codigo: 30, color: "rojo" },
+
+                { codigo: 31, color: "azul" },
+                { codigo: 32, color: "rojo" },
+                { codigo: 33, color: "rojo" },
+
+                { codigo: 69, color: "rojo" },
+                { codigo: 70, color: "negro" },
+                { codigo: 71, color: "fuxia" },
+                { codigo: 72, color: "negro" },
+                { codigo: 73, color: "fuxia" },
+                { codigo: 74, color: "morado" },
+                { codigo: 75, color: "fuxia" },
+                { codigo: 76, color: "morado" },
+                { codigo: 77, color: "fuxia" },
+                { codigo: 78, color: "fuxia" },
+
+                { codigo: 79, color: "negro" },
+                { codigo: 80, color: "fuxia" },
+                { codigo: 81, color: "rojo" },
+                { codigo: 82, color: "negro" },
+                { codigo: 83, color: "fuxia" },
+                { codigo: 84, color: "negro" },
+                { codigo: 85, color: "fuxia" },
+                { codigo: 86, color: "negro" },
+                { codigo: 87, color: "fuxia" },
+                { codigo: 88, color: "rojo" },
+
+                { codigo: 89, color: "amarillo" },
+                { codigo: 90, color: "azul" },
+                { codigo: 91, color: "morado" },
+                { codigo: 92, color: "amarillo" },
+                { codigo: 93, color: "morado" },
+                { codigo: 94, color: "fuxia" },
+                { codigo: 95, color: "fuxia" },
+                { codigo: 96, color: "amarillo" },
+                { codigo: 97, color: "azul" },
+                { codigo: 98, color: "amarillo" },
+
+                { codigo: 99, color: "fuxia" },
+                { codigo: 100, color: "negro" },
+                { codigo: 101, color: "amarillo" },
+                { codigo: 102, color: "fuxia" },
+                { codigo: 103, color: "negro" },
+                { codigo: 104, color: "negro" },
+                { codigo: 105, color: "amarillo" },
+                
+                { codigo: 106, color: "fuxia" },
+                { codigo: 107, color: "morado" },
+                { codigo: 108, color: "morado" },
+                { codigo: 109, color: "fuxia" },
+                { codigo: 110, color: "morado" },
+                { codigo: 111, color: "morado" },
+                { codigo: 112, color: "amarillo" },
+                { codigo: 113, color: "negro" },
+                { codigo: 114, color: "morado" },
+                { codigo: 115, color: "negro" },
+
+                { codigo: "115-3", color: "morado" },
+                { codigo: "115-2", color: "negro" },
+                { codigo: 116, color: "morado" },
+                { codigo: 117, color: "morado" },
+                { codigo: 118, color: "morado" },
+                { codigo: 119, color: "fuxia" },
+                { codigo: 120, color: "morado" },
+                { codigo: 121, color: "fuxia" },
+                { codigo: 122, color: "morado" },
+                { codigo: 123, color: "fuxia" },
+
+                { codigo: 124, color: "fuxia" },
+                { codigo: 125, color: "morado" },
+                { codigo: 126, color: "fuxia" },
+                { codigo: 127, color: "morado" },
+                { codigo: 128, color: "fuxia" },
+                { codigo: 129, color: "fuxia" },
+                { codigo: 130, color: "rojo" },
+                { codigo: 131, color: "rojo" },
+                { codigo: 132, color: "rojo" },
+                { codigo: 133, color: "rojo" },
+
+                { codigo: 134, color: "fuxia" },
+                { codigo: 135, color: "fuxia" },
+                { codigo: 136, color: "fuxia" },
+                { codigo: 137, color: "morado" },
+
+                { codigo: 44, color: "azul" },
+                { codigo: 45, color: "azul" },
+                { codigo: 46, color: "amarillo" },
+                { codigo: 47, color: "azul" },
+                { codigo: 48, color: "azul" },
+                { codigo: 49, color: "azul" },
+                { codigo: 50, color: "azul" },
+                { codigo: 51, color: "azul" },
+                { codigo: 52, color: "azul" },
+                { codigo: 53, color: "rojo" },
+
+                { codigo: 34, color: "rojo" },
+                { codigo: 35, color: "azul" },
+                { codigo: 36, color: "rojo" },
+                { codigo: 37, color: "azul" },
+                { codigo: 38, color: "rojo" },
+                { codigo: 39, color: "azul" },
+                { codigo: 40, color: "azul" },
+                { codigo: 41, color: "azul" },
+                { codigo: 42, color: "azul" },
+                { codigo: 43, color: "rojo" },
+
+                { codigo: 54, color: "rojo" },
+                { codigo: 55, color: "azul" },
+                { codigo: 56, color: "negro" },
+                { codigo: 57, color: "rojo" },
+                { codigo: 58, color: "negro" },
+                { codigo: 59, color: "azul" },
+                { codigo: 60, color: "azul" },
+                { codigo: 61, color: "azul" },
+                { codigo: 62, color: "azul" },
+                { codigo: 63, color: "azul" },
+                { codigo: 64, color: "azul" },
+                { codigo: 65, color: "rojo" },
+                { codigo: 66, color: "azul" },
+                { codigo: 67, color: "negro" },
+                { codigo: 68, color: "rojo" },
+                { codigo: 138, color: "negro" },
+                { codigo: 139, color: "rojo" },
+                { codigo: 138, color: "azul" },
+                { codigo: 141, color: "azul" },
+            ];
+
+            for (var i = 0; i < numeros.length; i++) {
+                if (numeros[i].codigo === codigo) {
+                    return numeros[i].color;
+                }
+            }
+
+            return "";
+        }
+    </script>
+</body>
+</html>
